@@ -106,8 +106,6 @@ init = tf.global_variables_initializer()
 with tf.Session() as sess:
     sess.run(init)
 
-    #print(sess.run(gen_variables))
-
     for i in range(epoch):
         batch = mnist.train.next_batch(batch_size)
         z_input = np.random.uniform(0,1.0,size=[batch_size,100]).astype(np.float32)
