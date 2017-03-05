@@ -1,3 +1,7 @@
+# Tensorflow implementation of the paper "Least Squares Generative Adversarial Networks"
+# https://arxiv.org/abs/1611.04076
+# Coded by GunhoChoi 170305
+
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
