@@ -33,21 +33,16 @@ def generator(z):
         fc1 = tf.contrib.layers.fully_connected(inputs=z, num_outputs=7*7*128, activation_fn=tf.nn.relu, \
                                                 normalizer_fn=tf.contrib.layers.batch_norm,\
                                                 weights_initializer=initializer,scope="g_fc1")
-
         fc1 = tf.reshape(fc1, shape=[batch_size, 7, 7, 128])
-        
         conv1 = tf.contrib.layers.conv2d(fc1, num_outputs=4*64, kernel_size=5, stride=1, padding="SAME",    \
                                         activation_fn=tf.nn.relu, normalizer_fn=tf.contrib.layers.batch_norm, \
                                         weights_initializer=initializer,scope="g_conv1")
-
         conv1 = tf.reshape(conv1, shape=[batch_size,14,14,64])
-
         conv2 = tf.contrib.layers.conv2d(conv1, num_outputs=4*32, kernel_size=5, stride=1, padding="SAME", \
                                         activation_fn=tf.nn.relu,normalizer_fn=tf.contrib.layers.batch_norm, \
                                         weights_initializer=initializer,scope="g_conv2")
 
         conv2 = tf.reshape(conv2, shape=[batch_size,28,28,32])
-        
         conv3 = tf.contrib.layers.conv2d(conv2, num_outputs=1, kernel_size=5, stride=1, padding="SAME", \
                                         activation_fn=tf.nn.tanh,scope="g_conv3")
 
@@ -60,17 +55,13 @@ def discriminator(tensor,reuse=False):
 
         conv1 = tf.contrib.layers.conv2d(inputs=tensor, num_outputs=32, kernel_size=5, stride=2, padding="SAME", \
                                         reuse=reuse, activation_fn=lrelu,weights_initializer=initializer,scope="d_conv1")
-
         conv2 = tf.contrib.layers.conv2d(inputs=conv1, num_outputs=64, kernel_size=5, stride=2, padding="SAME", \
                                         reuse=reuse, activation_fn=lrelu,normalizer_fn=tf.contrib.layers.batch_norm,\
                                         weights_initializer=initializer,scope="d_conv2")
-
         fc1 = tf.reshape(conv2, shape=[batch_size, 7*7*64])
-
         fc1 = tf.contrib.layers.fully_connected(inputs=fc1, num_outputs=512,reuse=reuse, activation_fn=lrelu, \
                                                 normalizer_fn=tf.contrib.layers.batch_norm, \
                                                 weights_initializer=initializer,scope="d_fc1")
-
         fc2 = tf.contrib.layers.fully_connected(inputs=fc1, num_outputs=1, reuse=reuse, activation_fn=tf.nn.sigmoid,\
                                                 weights_initializer=initializer,scope="d_fc2")
 
