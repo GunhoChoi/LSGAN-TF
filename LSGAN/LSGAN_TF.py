@@ -18,10 +18,16 @@ z_in = tf.placeholder(tf.float32, shape=[batch_size, 100])
 
 initializer = tf.truncated_normal_initializer(stddev=0.02)
 
+def lrelu(x, leak=0.2, name="lrelu"):
+    with tf.variable_scope(name):
+        f1 = 0.5 * (1 + leak)
+        f2 = 0.5 * (1 - leak)
+        return f1 * x + f2 * abs(x)
 
+''' 
 def lrelu(x, leak=0.2, name="lrelu"):
     return tf.maximum(x, leak*x)
-
+'''
 
 def generator(z):
     
