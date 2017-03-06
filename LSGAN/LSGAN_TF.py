@@ -103,7 +103,7 @@ with tf.Session() as sess:
 
         _, d_loss = sess.run([update_D,disc_loss],feed_dict={x: batch[0], z_in: z_input})
         
-        for j in range(10):
+        for j in range(4):
             _, g_loss = sess.run([update_G,gen_loss],feed_dict={z_in: z_input})
 
         print("i: {} / d_loss: {} / g_loss: {}".format(i,np.sum(d_loss)/batch_size, np.sum(g_loss)/batch_size))
