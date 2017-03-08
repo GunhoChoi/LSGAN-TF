@@ -31,6 +31,7 @@ def int_to_onehot(z_label):
 def lrelu(x, leak=0.2, name="lrelu"):
 
     with tf.variable_scope(name):
+        
         f1 = 0.5 * (1 + leak)
         f2 = 0.5 * (1 - leak)
 
@@ -41,25 +42,25 @@ def generator(z):
 
     with tf.variable_scope("generator"):
        
-        fc1 = tf.contrib.layers.fully_connected(inputs=z, num_outputs=7*7*128, activation_fn=tf.nn.relu,
+        fc1 = tf.contrib.layers.fully_connected(inputs=z, num_outputs=7 * 7 * 128, activation_fn=tf.nn.relu,
                                                 normalizer_fn=tf.contrib.layers.batch_norm,
                                                 weights_initializer=initializer,
                                                 scope="g_fc1")
         fc1 = tf.reshape(fc1, shape=[batch_size, 7, 7, 128])
         
-        conv1 = tf.contrib.layers.conv2d(fc1, num_outputs=4*64, kernel_size=5, stride=1,
+        conv1 = tf.contrib.layers.conv2d(fc1, num_outputs=4 * 64, kernel_size=5, stride=1,
                                          padding="SAME", activation_fn=tf.nn.relu,
                                          normalizer_fn=tf.contrib.layers.batch_norm,
                                          weights_initializer=initializer,
                                          scope="g_conv1")
-        conv1 = tf.reshape(conv1, shape=[batch_size,14,14,64])
+        conv1 = tf.reshape(conv1, shape=[batch_size, 14, 14, 64])
 
-        conv2 = tf.contrib.layers.conv2d(conv1, num_outputs=4*32, kernel_size=5, stride=1,
+        conv2 = tf.contrib.layers.conv2d(conv1, num_outputs=4 * 32, kernel_size=5, stride=1,
                                          padding="SAME", activation_fn=tf.nn.relu,
                                          normalizer_fn=tf.contrib.layers.batch_norm,
                                          weights_initializer=initializer,
                                          scope="g_conv2")
-        conv2 = tf.reshape(conv2, shape=[batch_size,28,28,32])
+        conv2 = tf.reshape(conv2, shape=[batch_size, 28, 28, 32])
         
         conv3 = tf.contrib.layers.conv2d(conv2, num_outputs=1, kernel_size=5, stride=1,
                                          padding="SAME", activation_fn=tf.nn.tanh,
@@ -83,7 +84,7 @@ def discriminator(tensor, reuse=False):
                                          weights_initializer=initializer,
                                          scope="d_conv2")
 
-        fc1 = tf.reshape(conv2, shape=[batch_size, 7*7*64])
+        fc1 = tf.reshape(conv2, shape=[batch_size, 7 * 7 * 64])
         fc1 = tf.contrib.layers.fully_connected(inputs=fc1, num_outputs=512,reuse=reuse, activation_fn=lrelu,
                                                 normalizer_fn=tf.contrib.layers.batch_norm,
                                                 weights_initializer=initializer,
@@ -148,7 +149,7 @@ with tf.Session() as sess:
         z_random = np.random.uniform(0, 1.0, size=[batch_size, 100]).astype(np.float32)
         z_label = np.random.randint(0, 10, size=batch_size)
         z_label_onehot = int_to_onehot(z_label)
-        z_contin = 2*np.random.random(size=[batch_size,2])-1
+        z_contin = 2 * np.random.random(size=[batch_size,2]) - 1
         z_concat = np.concatenate([z_random, z_label_onehot,z_contin], axis=1)
 
         _, d_loss = sess.run([update_D, disc_loss_total], feed_dict={x: batch[0], y_:batch[1], z_in: z_concat})
