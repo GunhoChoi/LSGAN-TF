@@ -12,18 +12,19 @@ Implementation of [Learning to Discover Cross-Domain Relations with Generative A
 - wget
 
 ## Download code
-
-> git clone https://github.com/GunhoChoi/GAN_simple.git
-> cd ./GAN_simple/DiscoGAN
+~~~~
+git clone https://github.com/GunhoChoi/GAN_simple.git
+cd ./GAN_simple/DiscoGAN
+~~~~~
 
 ## Download Image
-
-> python3 ./down_resize_crop.py
-
+~~~
+python3 ./down_resize_crop.py
+~~~
 ## Train Model
-
-> python3 ./DiscoGAN.py
-
+~~~
+python3 ./DiscoGAN.py
+~~~
 ## Result
 
-> under training..
+ under training..
