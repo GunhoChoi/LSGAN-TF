@@ -11,6 +11,10 @@ Tensorflow Implementation of [Learning to Discover Cross-Domain Relations with G
 - Pillow
 - wget
 
+## Download code
+
+> git clone https://github.com/GunhoChoi/GAN_simple.git
+
 ## Download Image
 
 > python3 ./down_resize_crop.py
