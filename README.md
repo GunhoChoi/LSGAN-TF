@@ -1,4 +1,4 @@
-# LSGAN_simple
+# LSGAN_TF
 Simple implementation of Least Squares Generative Adversarial Networks
 
 <img src="./LSGAN.png" width="60%">
