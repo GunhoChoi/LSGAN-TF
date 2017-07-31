@@ -21,7 +21,6 @@ initializer = tf.truncated_normal_initializer(stddev=0.02)
 
 
 def int_to_onehot(z_label):
-
     one_hot_array = np.zeros(shape=[len(z_label), discrete_latent_size])
     one_hot_array[np.arange(len(z_label)), z_label] = 1
 
@@ -29,9 +28,7 @@ def int_to_onehot(z_label):
 
 
 def lrelu(x, leak=0.2, name="lrelu"):
-
     with tf.variable_scope(name):
-        
         f1 = 0.5 * (1 + leak)
         f2 = 0.5 * (1 - leak)
 
@@ -39,9 +36,7 @@ def lrelu(x, leak=0.2, name="lrelu"):
 
 
 def generator(z):
-
     with tf.variable_scope("generator"):
-       
         fc1 = tf.contrib.layers.fully_connected(inputs=z, num_outputs=7 * 7 * 128, activation_fn=tf.nn.relu,
                                                 normalizer_fn=tf.contrib.layers.batch_norm,
                                                 weights_initializer=initializer,
@@ -70,9 +65,7 @@ def generator(z):
 
 
 def discriminator(tensor, reuse=False):
-    
     with tf.variable_scope("discriminator"):
-
         conv1 = tf.contrib.layers.conv2d(inputs=tensor, num_outputs=32, kernel_size=5, stride=2,
                                          padding="SAME",reuse=reuse, activation_fn=lrelu,
                                          weights_initializer=initializer,
